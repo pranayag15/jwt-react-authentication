@@ -11,17 +11,19 @@ import Register from "./components/auth/Register";
 import Login from "./components/auth/Login";
 import PrivateRoute from "./components/private-route/PrivateRoute";
 import Dashboard from "./components/dashboard/Dashboard";
+import Razorpay from "./components/Razorpay/payment";
 
 if (localStorage.jwtToken) {
   const token = localStorage.jwtToken;
   setAuthToken(token);
-  const decoded = jwt_decode(token);
-  store.dispatch(setCurrentUser(decoded));
-  const currentTime = Date.now() / 1000;
-  if (decoded.exp < currentTime) {
-    store.dispatch(logoutUser());
-    window.location.href = "./login";
-  }
+  // const decoded = jwt_decode(token);
+  // store.dispatch(setCurrentUser(decoded));
+  store.dispatch(setCurrentUser("Pranay"));
+  // const currentTime = Date.now() / 1000;
+  // if (decoded.exp < currentTime) {
+  //   store.dispatch(logoutUser());
+  //   window.location.href = "./login";
+  // }
 }
 
 class App extends Component {
@@ -36,6 +38,7 @@ class App extends Component {
             <Route exact path="/login" component={Login} />
             <Switch>
               <PrivateRoute exact path="/dashboard" component={Dashboard} />
+              <PrivateRoute exact path="/payment" component={Razorpay} />
             </Switch>
           </div>
         </Router>
